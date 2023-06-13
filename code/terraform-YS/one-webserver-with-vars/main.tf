@@ -10,11 +10,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
+
+  access_key = "AKIAU4ALRGXA24CQAUXM"
+  secret_key = "diXOoPYuPEBSUqfOntxI7QPCOcjqZmLPgzAG0h77"
 }
 
 resource "aws_instance" "example" {
-  ami                    = "ami-0fb653ca2d3203ac1"
+  ami                    = "ami-022e1a32d3f742bd8"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
 
