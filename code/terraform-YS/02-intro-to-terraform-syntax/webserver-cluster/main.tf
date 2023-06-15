@@ -58,6 +58,12 @@ data "aws_subnets" "default" {
   }
 }
 
+resource "aws_lb" "example" {
+  name = "terraform-asg-example"
+  load_balancer_type = "application"
+  subnets = data.aws_subnets.default.ids
+}
+
 resource "aws_security_group" "instance" {
 
   name = var.security_group_name
