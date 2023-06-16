@@ -19,7 +19,7 @@ provider "aws" {
 resource "aws_launch_configuration" "example" {
   image_id            = "ami-022e1a32d3f742bd8"
   instance_type       = "t2.micro"
-  security_groups     = [aws_security_group.instance.id]
+  security_groups     = [aws_security_group.alb.id]
 
   user_data = <<-EOF
             #!/bin/bash
@@ -99,18 +99,12 @@ resource "aws_security_group" "alb" {
   }
 
   #Allow all outbound requests
-  egress ={
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_lb_target_group" "asg" {
-  name = "terraform-asg-example"
-  port = var.server_port
-  
 }
 
 resource "aws_lb_target_group" "asg" {
