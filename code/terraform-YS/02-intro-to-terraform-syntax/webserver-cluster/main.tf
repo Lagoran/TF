@@ -12,14 +12,14 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key = "AKIA5HNPASA4TCELORHS"
-  secret_key = "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"
+  access_key = "AKIAWIZ2CYFTZJRNVMVN"
+  secret_key = "aGUZmFfYwnqFq631QzTLVjfGgR5C+bm4yGe0GdqG"
 }
 
 resource "aws_launch_configuration" "example" {
   image_id            = "ami-022e1a32d3f742bd8"
   instance_type       = "t2.micro"
-  security_groups     = [aws_security_group.alb.id]
+  security_groups     = [aws_security_group.instance.id]
 
   user_data = <<-EOF
             #!/bin/bash
@@ -27,7 +27,7 @@ resource "aws_launch_configuration" "example" {
             nohup busybox httpd -f -p ${var.server_port} &
             EOF
 
-  #Required when using launch configuration with an auto scaling group
+  # Required when using a launch configuration with an auto scaling group
   lifecycle {
     create_before_destroy = true
   }
@@ -44,9 +44,20 @@ resource "aws_autoscaling_group" "example" {
   max_size = 10
 
   tag {
-    key = "Name"
-    value = "terraform-asg-example"
+    key                 = "Name"
+    value               = "terraform-asg-example"
     propagate_at_launch = true
+  }
+}
+
+resource "aws_security_group" "instance" {
+  name = var.instance_security_group_name
+
+  ingress {
+    from_port   = var.server_port
+    to_port     = var.server_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -56,13 +67,13 @@ data "aws_vpc" "default" {
 
 data "aws_subnets" "default" {
   filter {
-    name = "vpc-id"
-    values = [data.aws_vpc.default.id]
+    name    = "vpc-id"
+    values  = [data.aws_vpc.default.id]
   }
 }
 
 resource "aws_lb" "example" {
-  name                  = "terraform-asg-example"
+  name                  = var.alb_name
   load_balancer_type    = "application"
   subnets               = data.aws_subnets.default.ids
   security_groups       = [aws_security_group.alb.id]
@@ -73,7 +84,7 @@ resource "aws_lb_listener" "http" {
   port              = 80
   protocol          = "HTTP"
 
-  #By default, return a simpe 403
+  #By default, return a simpe 404
 
   default_action {
     type = "fixed-response"
@@ -87,14 +98,14 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_security_group" "alb" {
-  name = "terraform-example-alb"
+  name = var.alb_security_group_name
 
   # Allow inbound HTTP requests
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port     = 80
+    to_port       = 80
+    protocol      = "tcp"
+    cidr_blocks   = ["0.0.0.0/0"]
   
   }
 
@@ -108,10 +119,12 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_lb_target_group" "asg" {
-  name          = "terraform-asg-example"
-  port          = var.server_port
-  protocol      = "HTTP"
-  vpc_id        = data.aws_subnets.default.id
+
+  name = var.alb_name
+
+  port     = var.server_port
+  protocol = "HTTP"
+  vpc_id   = data.aws_vpc.default.id
 
   health_check {
     path                = "/"
@@ -121,7 +134,7 @@ resource "aws_lb_target_group" "asg" {
     timeout             = 3
     healthy_threshold   = 2
     unhealthy_threshold = 2
-  }     
+  }
 }
 
 resource "aws_lb_listener_rule" "asg" {

@@ -33,6 +33,12 @@ variable "map_example" {
   }
 }
 
+
+variable "alb_name" {
+  description   = "ALB name"
+  type          = string
+  default       = "terraform-asg-example"
+}
 variable "object_example" {
   description = "An example of a structural type in Terraform"
   type        = object({
@@ -52,6 +58,18 @@ variable "object_example" {
 
 variable "security_group_name" {
   description = "The name of the security group"
+  type        = string
+  default     = "terraform-example-instance"
+}
+
+variable "alb_security_group_name" {
+  description = "The name of the security group for the ALB"
+  type        = string
+  default     = "terraform-example-alb"
+}
+
+variable "instance_security_group_name" {
+  description = "The name of the security group for the EC2 Instances"
   type        = string
   default     = "terraform-example-instance"
 }
