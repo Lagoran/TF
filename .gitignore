@@ -2,3 +2,5 @@
 *.tfstate.backup
 .terraform
 *.iml
+.terraform.lock.hcl
+code/terraform-YS/02-intro-to-terraform-syntax/webserver-cluster/.terraform.lock.hcl
