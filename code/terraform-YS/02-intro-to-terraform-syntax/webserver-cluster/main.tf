@@ -106,7 +106,6 @@ resource "aws_security_group" "alb" {
     to_port       = 80
     protocol      = "tcp"
     cidr_blocks   = ["0.0.0.0/0"]
-  
   }
 
   #Allow all outbound requests
