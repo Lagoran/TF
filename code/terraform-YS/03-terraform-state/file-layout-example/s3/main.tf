@@ -12,20 +12,23 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key = "AKIAQTDB4QXC5HH6M3MN"
-  secret_key = "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"
+  access_key          = "AKIA2HGFCP7KXUJ4YPOW"
+  secret_key          = "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"
+
 }
+
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "terraform-up-and-running-state-ystra"
 
-# Prevent accidental deletion of this s3 bucket
-  lifecycle {
-    prevent_destroy = true
-  }
+  bucket = var.bucket_name
+
+  // This is only here so we can destroy the bucket as part of automated tests. You should not copy this for production
+  // usage
+  force_destroy = true
+
 }
 
-# Enable versionin so you can see full revision hostory of your state files
-
+# Enable versioning so you can see the full revision history of your
+# state files
 resource "aws_s3_bucket_versioning" "enabled" {
   bucket = aws_s3_bucket.terraform_state.id
   versioning_configuration {
@@ -33,11 +36,10 @@ resource "aws_s3_bucket_versioning" "enabled" {
   }
 }
 
-
 # Enable server-side encryption by default
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   bucket = aws_s3_bucket.terraform_state.id
-  
+
   rule {
     apply_server_side_encryption_by_default {
       sse_algorithm = "AES256"
@@ -45,8 +47,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   }
 }
 
-
-# Explicitely block all public access to s3 bucket
+# Explicitly block all public access to the S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket                  = aws_s3_bucket.terraform_state.id
   block_public_acls       = true
@@ -56,13 +57,12 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
-  name                    = "terraform_dynamo_tbl"
-  billing_mode            = "PAY_PER_REQUEST"
-  hash_key                = "LockID"
+  name         = var.table_name
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
 
   attribute {
     name = "LockID"
     type = "S"
   }
-  
 }
