@@ -10,11 +10,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
+
+  access_key          = "AKIA6IDCRNE3Q7OMOGUJ"
+  secret_key          = "FOErvxK6Ikg/eY41StkIWTrQJW6BGRyIt6kIp2My"
+
 }
 
 resource "aws_iam_user" "existing_user" {
   # Make sure to update this to your own user name!
   name = "yevgeniy.brikman"
 }
-
