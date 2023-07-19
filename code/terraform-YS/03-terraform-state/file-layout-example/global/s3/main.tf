@@ -10,11 +10,11 @@ terraform {
   # No variables are allowed in the backend definition
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "terraform-up-and-running-state-ystra"
+    bucket         = "terraform-up-and-running-state-ystrahinov"
     key            = "global/s3/terraform.tfstate"
     region         = "us-east-1"
-    access_key     = "AKIA5W2H366OKECTD5UY"
-    secret_key     = "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"
+    access_key     = "AKIAXE4N45FWEK2MUOHS"
+    secret_key     = "FsNVKhDZT1gKI8ZMEOnj+JnxS01L4qyx80L8mybT"
     
 
     # Replace this with your DynamoDB table name!
@@ -26,8 +26,8 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key          = "AKIA5W2H366OKECTD5UY"
-  secret_key          = "aB7VWNkii7faELuNoXGOvxo2pKs6j57VB2Els2W1"
+  access_key          = "AKIAXE4N45FWEK2MUOHS"
+  secret_key          = "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"
 
 }
 
