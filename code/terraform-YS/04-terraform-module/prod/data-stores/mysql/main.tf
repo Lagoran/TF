@@ -11,7 +11,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-up-and-running-state-ystrahinov"
-    key            = "stage/data-stores/mysql/terraform.tfstate"
+    key            = "prod/data-stores/mysql/terraform.tfstate"
     region         = "us-east-1"
     access_key     = "AKIARIZLXQ7IMTIQGKQY"
     secret_key     = "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"

@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-up-and-running-state-ystrahinov"
-    key            = "stage/services/webserver-cluster/terraform.tfstate"
+    key            = "prod/services/webserver-cluster/terraform.tfstate"
     region         = "us-east-1"
     access_key     = "AKIARIZLXQ7IMTIQGKQY"
     secret_key     = "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"
@@ -23,11 +23,11 @@ provider "aws" {
 module "webserver_cluster" {
   source = "../../../modules/services/webserver-cluster"
 
-  cluster_name            = "webservers-stage"
+  cluster_name            = "webservers-prod"
   db_remote_state_bucket  = "terraform-up-and-running-state-ystrahinov"
-  db_remote_state_key     = "stage/data-stores/mysql/terraform.tfstate"
+  db_remote_state_key     = "prod/data-stores/mysql/terraform.tfstate"
 
-  instance_type           = "t2.micro"
-  min_size                = 2
+  instance_type           = "m4.large"
+  min_size                = 4
   max_size                = 10
 }

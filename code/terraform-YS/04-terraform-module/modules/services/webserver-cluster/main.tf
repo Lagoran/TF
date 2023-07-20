@@ -7,8 +7,8 @@ terraform {
   #   bucket         = "terraform-up-and-running-state-ystrahinov"
   #   key            = "stage/services/webserver-cluster/terraform.tfstate"
   #   region         = "us-east-1"
-  #   access_key     = "AKIAWZHTONJS6DUY365F"
-  #   secret_key     = "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"
+  #   access_key     = "AKIARIZLXQ7IMTIQGKQY"
+  #   secret_key     = "ERyyZFmZ69adGBurx6f8M+7fZSPn4uTIl8TnVnxr"
     
 
   #   # Replace this with your DynamoDB table name!
@@ -20,14 +20,14 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key          = "AKIAWZHTONJS6DUY365F"
-  secret_key          = "W+XejrRotutGVAJEZsk6bFvoy68zZXI/5H+OFir+"
+  access_key          = "AKIARIZLXQ7IMTIQGKQY"
+  secret_key          = "ERyyZFmZ69adGBurx6f8M+7fZSPn4uTIl8TnVnxr"
 
 }
 
 resource "aws_launch_configuration" "example" {
   image_id            = "ami-022e1a32d3f742bd8"
-  instance_type       = "t2.micro"
+  instance_type       = var.instance_type
   security_groups     = [aws_security_group.instance.id]
 
   # Render the User Data script as a template
@@ -50,18 +50,18 @@ resource "aws_autoscaling_group" "example" {
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
 
-  min_size = 2
-  max_size = 10
+  min_size = var.min_size
+  max_size = var.max_size
 
   tag {
     key                 = "Name"
-    value               = "${var.cluster-name}-example"
+    value               = "${var.cluster_name}-example"
     propagate_at_launch = true
   }
 }
 
 resource "aws_security_group" "instance" {
-  name = "{var.cluster-name}-insatnce"
+  name = "{var.cluster-name}-instance"
 
   ingress {
     from_port   = var.server_port
@@ -72,7 +72,7 @@ resource "aws_security_group" "instance" {
 }
 
 resource "aws_lb" "example" {
-  name               = var.alb_name
+  name               = "${var.cluster_name}-lb"
   load_balancer_type = "application"
   subnets            = data.aws_subnets.default.ids
   security_groups    = [aws_security_group.alb.id]
@@ -96,7 +96,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_target_group" "asg" {
-  name     = var.alb_name
+  name     = "${var.cluster_name}-trg-grp-asg"
   port     = var.server_port
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
@@ -155,8 +155,8 @@ data "terraform_remote_state" "db" {
     bucket = var.db_remote_state_bucket
     key    = var.db_remote_state_key
     region = "us-east-1"
-    access_key          = "AKIAWZHTONJS6DUY365F"
-    secret_key          = "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"    
+    access_key          = "AKIARIZLXQ7IMTIQGKQY"
+    secret_key          = "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"    
   }
 }
 

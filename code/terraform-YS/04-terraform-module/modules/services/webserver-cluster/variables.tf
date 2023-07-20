@@ -11,13 +11,28 @@ variable "cluster_name" {
 variable "db_remote_state_bucket" {
   description = "The name of the S3 bucket used for the database's remote state storage"
   type        = string
-  default     = "terraform-up-and-running-state-ystrahinov"
+  # default     = "terraform-up-and-running-state-ystrahinov"
 }
 
 variable "db_remote_state_key" {
   description = "The name of the key in the S3 bucket used for the database's remote state storage"
   type        = string
-  default     = "stage/data-stores/mysql/terraform.tfstate"
+  # default     = "stage/data-stores/mysql/terraform.tfstate"
+}
+
+variable "instance_type" {
+  description = "The type of EC2 instance to run (e.g. t2.micro)"
+  type        = string
+}
+
+variable "min_size" {
+  description = "The minimum number of EC2 Instance in the ASG"
+  type        = number
+}
+
+variable "max_size" {
+  description = "The maximum number of EC2 Instance in the ASG"
+  type        = number
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -31,11 +46,11 @@ variable "server_port" {
   default     = 8080
 }
 
-variable "alb_name" {
-  description = "The name of the ALB"
-  type        = string
-  default     = "terraform-asg-example"
-}
+# variable "alb_name" {
+#   description = "The name of the ALB"
+#   type        = string
+#   default     = "terraform-asg-example"
+# }
 
 # variable "instance_security_group_name" {
 #   description = "The name of the security group for the EC2 Instances"
@@ -48,3 +63,4 @@ variable "alb_name" {
 #   type        = string
 #   default     = "terraform-example-alb"
 # }
+
