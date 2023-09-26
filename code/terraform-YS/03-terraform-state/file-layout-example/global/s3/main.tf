@@ -7,13 +7,27 @@ terraform {
       version = "~> 4.0"
     }
   }
+  # No variables are allowed in the backend definition
+  backend "s3" {
+    # Replace this with your bucket name!
+    bucket         = "terraform-up-and-running-state-ystrahinov"
+    key            = "global/s3/terraform.tfstate"
+    region         = "us-east-1"
+    access_key     = "AKIAXE4N45FWEK2MUOHS"
+    secret_key     = "FsNVKhDZT1gKI8ZMEOnj+JnxS01L4qyx80L8mybT"
+    
+
+    # Replace this with your DynamoDB table name!
+    dynamodb_table = "terraform_dynamo_tbl"
+    encrypt        = true
+  }      
 }
 
 provider "aws" {
   region = "us-east-1"
 
-  access_key          = "AKIA2HGFCP7KXUJ4YPOW"
-  secret_key          = "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"
+  access_key          = "AKIAXE4N45FWEK2MUOHS"
+  secret_key          = "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"
 
 }
 
