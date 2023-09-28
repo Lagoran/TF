@@ -1,7 +1,8 @@
 resource "aws_instance" "example" {
   ami                    = "ami-022e1a32d3f742bd8"
   instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.instance.id]
+  key_name               = "my-key-pair"
+  vpc_security_group_ids = [aws_security_group.instance.id,"default"]
 
   user_data = <<-EOF
               #!/bin/bash
@@ -10,6 +11,17 @@ resource "aws_instance" "example" {
               EOF
 
   user_data_replace_on_change = true
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo yum install -y openssh-server",
+      "sudo systemctl start sshd",
+      "sudo systemctl enable sshd",
+      "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config",
+      "sudo systemctl restart sshd",
+    ]
+  }
 
   tags = {
     Name = "terraform-example"
