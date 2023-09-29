@@ -32,33 +32,34 @@ module "efs" {
           #identifiers = ["arn:aws:iam::084160361108:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_rAppAdmins_26bd55710366ab3c"]
         }
       ]
-      resources = ["arn:aws:elasticfilesystem:us-east-1:610162518049:file-system/fs-08ed8acf2b24a0d39"]      
+      #resources = ["arn:aws:elasticfilesystem:us-east-1:107218933953:file-system/fs-0aa243cf7ebaf4592"]
+      resources = ["${local.efs_arn}"]
     }
   ]
 
   # Mount targets / security group
   mount_targets = {
+    "us-east-1a" = {
+      subnet_id = "${local.subnet_id_us-east-1a}"
+    }
     "us-east-1b" = {
-      subnet_id = "subnet-093d981bd0e1e1e2b"
+      subnet_id = "${local.subnet_id_us-east-1b}"
     }
     "us-east-1c" = {
-      subnet_id = "subnet-0aba18d4953a2cd1c"
-    }
-    "us-east-1e" = {
-      subnet_id = "subnet-0f5586a1c0ed8ba5e"
-    }
-    "us-east-1a" = {
-      subnet_id = "subnet-03e0ccabbb6baba38"
-    }
-    "us-east-1f" = {
-      subnet_id = "subnet-0437cd2481697c25a"
+      subnet_id = "${local.subnet_id_us-east-1c}"
     }
     "us-east-1d" = {
-      subnet_id = "subnet-0cf4e828658618f5b"
+      subnet_id = "${local.subnet_id_us-east-1d}"
+    }
+    "us-east-1e" = {
+      subnet_id = "${local.subnet_id_us-east-1e}"
+    }
+    "us-east-1f" = {
+      subnet_id = "${local.subnet_id_us-east-1f}"
     }
   }
   security_group_description = "EFS-sandbox security group"
-  security_group_vpc_id      = "vpc-03baf630bcaac0124"
+  security_group_vpc_id      = local.security_group_vpc_id
   security_group_rules = {
     vpc = {
       # relying on the defaults provdied for EFS/NFS (2049/TCP + ingress)
