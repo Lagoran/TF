@@ -100,7 +100,7 @@ module "efs" {
   # Replication configuration
   create_replication_configuration = true
   replication_configuration_destination = {
-    region = "us-east-1"
+    region = "${local.region}"
   }
 
   tags = {

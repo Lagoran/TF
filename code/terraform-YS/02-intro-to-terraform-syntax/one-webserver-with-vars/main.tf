@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
@@ -12,8 +12,8 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key = "AKIAU4ALRGXA24CQAUXM"
-  secret_key = "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"
+  access_key = "AKIAQ5WABLEVABZNKHT4"
+  secret_key = "3aXHkHbwkp1D6zudM0pB8yZHRdzatgZW4NVGcroH"
 }
 
 resource "aws_instance" "example" {
@@ -30,7 +30,7 @@ resource "aws_instance" "example" {
   user_data_replace_on_change = true
 
   tags = {
-    Name = "terraform-example"
+    Name = "terraform-example-draft"
   }
 }
 
@@ -45,4 +45,3 @@ resource "aws_security_group" "instance" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-

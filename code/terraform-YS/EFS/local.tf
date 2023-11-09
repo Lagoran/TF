@@ -1,13 +1,19 @@
 locals {
-  efs_arn                    = "arn:aws:elasticfilesystem:us-east-1:107218933953:file-system/fs-0aa243cf7ebaf4592"
-  security_group_vpc_id      = "vpc-0ed9a35c213f20938"
-  subnet_id_us-east-1a       = "subnet-05ee34d9023477dcd"
-  subnet_id_us-east-1b       = "subnet-040a5549f11bd784f"
-  subnet_id_us-east-1c       = "subnet-0196b072b06961997"
-  subnet_id_us-east-1d       = "subnet-0f9cc3096051ddb72"
-  subnet_id_us-east-1e       = "subnet-0c545ef87c2239fb8"
-  subnet_id_us-east-1f       = "subnet-0013b87207c55bd9d"
-  default_security_group_id  = "sg-0ba4d5c358cc5dbd1"
+  access_key = "AKIA2HGFCP7K4GVKT6FZ"
+  secret_key = "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"
+  region                     = "us-east-1"
+
+  security_group_vpc_id      = "vpc-0199c31e396651aea"
+  default_security_group_id  = "sg-0190522f86b153e50"   
+  efs_arn                    = "arn:aws:elasticfilesystem:us-east-1:702640455637:file-system/fs-012a484adea502956"
+ 
+  subnet_id_us-east-1a       = "subnet-02cb0e187ba115088"
+  subnet_id_us-east-1b       = "subnet-0492546f8c8abe492"
+  subnet_id_us-east-1c       = "subnet-087e32941f5357b33"
+  subnet_id_us-east-1d       = "subnet-0407a60b569136352"
+  subnet_id_us-east-1e       = "subnet-0cbf9415520a25557"
+  subnet_id_us-east-1f       = "subnet-0f4fb93c13563e288"
+
 }
 
 #For cort testing
