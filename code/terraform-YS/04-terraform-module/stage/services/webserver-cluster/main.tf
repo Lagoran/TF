@@ -6,8 +6,8 @@ terraform {
     bucket         = "terraform-up-and-running-state-ystrahinov"
     key            = "stage/services/webserver-cluster/terraform.tfstate"
     region         = "us-east-1"
-    access_key     = "AKIARIZLXQ7IMTIQGKQY"
-    secret_key     = "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"
+    access_key     = "AKIA5PVZGXXWZRPBI25M"
+    secret_key     = "AKr8WIQuBfeQTOYvmxzp3oFYinKHOFHy7QTbKshC"
     
 
     # Replace this with your DynamoDB table name!
@@ -30,4 +30,24 @@ module "webserver_cluster" {
   instance_type           = "t2.micro"
   min_size                = 2
   max_size                = 10
+}
+
+resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
+  scheduled_action_name = "scale-out-during-business-hours"
+  min_size              = 1
+  max_size              = 5
+  desired_capacity      = 1
+  recurrence            = "0 9 * * *"
+
+  autoscaling_group_name = module.webserver_cluster.asg_name
+}
+
+resource "aws_autoscaling_schedule" "scale_in_at_night" {
+  scheduled_action_name = "scale-in-at-night"
+  min_size              = 1
+  max_size              = 3
+  desired_capacity      = 1
+  recurrence            = "0 17 * * *"
+
+  autoscaling_group_name = module.webserver_cluster.asg_name
 }

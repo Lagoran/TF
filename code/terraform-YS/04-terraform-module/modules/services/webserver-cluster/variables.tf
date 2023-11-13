@@ -2,6 +2,16 @@
 # REQUIRED PARAMETERS
 # You must provide a value for each of these parameters.
 # ---------------------------------------------------------------------------------------------------------------------
+variable "access_key" {
+  description = "AWS access key"
+  type        = string
+}
+
+variable "secret_key" {
+  description = "AWS secret key"
+  type        = string
+}
+
 variable "cluster_name" {
   description = "The name to use for all the cluster resources"
   type        = string
@@ -63,4 +73,3 @@ variable "server_port" {
 #   type        = string
 #   default     = "terraform-example-alb"
 # }
-

@@ -13,8 +13,8 @@ terraform {
     bucket         = "terraform-up-and-running-state-ystrahinov"
     key            = "global/s3/terraform.tfstate"
     region         = "us-east-1"
-    access_key     = "AKIARIZLXQ7IMTIQGKQY"
-    secret_key     = "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"
+    access_key     = "AKIA5PVZGXXWZRPBI25M"
+    secret_key     = "AKr8WIQuBfeQTOYvmxzp3oFYinKHOFHy7QTbKshC"
     
 
     # Replace this with your DynamoDB table name!
@@ -26,8 +26,8 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key          = "AKIARIZLXQ7IMTIQGKQY"
-  secret_key          = "ERyyZFmZ69adGBurx6f8M+7fZSPn4uTIl8TnVnxr"
+  access_key          = "AKIA5PVZGXXWZRPBI25M"
+  secret_key          = "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"
 
 }
 
