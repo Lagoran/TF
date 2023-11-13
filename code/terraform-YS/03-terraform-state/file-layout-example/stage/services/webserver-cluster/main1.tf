@@ -10,15 +10,15 @@ terraform {
 # No variables are allowed in the backend definition
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "terraform-up-and-running-state-ystrahinov"
-    key            = "stage/services/webserver-cluster/terraform.tfstate"
+    bucket         = "terraform-up-and-running-state-ys"
+    key            = "global/s3/terraform.tfstate"
     region         = "us-east-1"
-    access_key     = "AKIAXE4N45FWEK2MUOHS"
-    secret_key     = "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"
+    access_key     = "AKIAQ42FJ63UNVWZFHEQ"
+    secret_key     = "XLOXuhVky7vIPk4byB66LpUP5Yck3odiUEcjAoNo"
     
 
     # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform_dynamo_tbl"
+    dynamodb_table = "terraform_locks"
     encrypt        = true
   }  
 }
@@ -26,8 +26,8 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-  access_key          = "AKIAXE4N45FWEK2MUOHS"
-  secret_key          = "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"
+  access_key          = "AKIAQ42FJ63UNVWZFHEQ"
+  secret_key          = "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"
 
 }
 
@@ -161,8 +161,8 @@ data "terraform_remote_state" "db" {
     bucket = var.db_remote_state_bucket
     key    = var.db_remote_state_key
     region = "us-east-1"
-    access_key          = "AKIAXE4N45FWEK2MUOHS"
-    secret_key          = "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"    
+    access_key          = "AKIAQ42FJ63UNVWZFHEQ"
+    secret_key          = "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"    
   }
 }
 
