@@ -2,16 +2,6 @@
 # REQUIRED PARAMETERS
 # You must provide a value for each of these parameters.
 # ---------------------------------------------------------------------------------------------------------------------
-variable "access_key" {
-  description = "AWS access key"
-  type        = string
-}
-
-variable "secret_key" {
-  description = "AWS secret key"
-  type        = string
-}
-
 variable "cluster_name" {
   description = "The name to use for all the cluster resources"
   type        = string
@@ -21,7 +11,7 @@ variable "cluster_name" {
 variable "db_remote_state_bucket" {
   description = "The name of the S3 bucket used for the database's remote state storage"
   type        = string
-  # default     = "terraform-up-and-running-state-ystrahinov"
+  # default     = "terraform-up-and-running-state-ys"
 }
 
 variable "db_remote_state_key" {

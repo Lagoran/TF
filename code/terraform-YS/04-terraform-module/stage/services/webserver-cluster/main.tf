@@ -3,11 +3,11 @@ terraform {
 # No variables are allowed in the backend definition
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "terraform-up-and-running-state-ystrahinov"
+    bucket         = "terraform-up-and-running-state-ys"
     key            = "stage/services/webserver-cluster/terraform.tfstate"
     region         = "us-east-1"
-    access_key     = "AKIA5PVZGXXWZRPBI25M"
-    secret_key     = "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"
+    access_key     = "AKIA3MUY343T5TGKW7N5"
+    secret_key     = "h+GYIQswe59SQntyhS/LCgJLDfNCwLKiMi4U2mYe"
     
 
     # Replace this with your DynamoDB table name!
@@ -18,13 +18,16 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+
+  access_key     = "AKIA3MUY343T5TGKW7N5"
+  secret_key     = "h+GYIQswe59SQntyhS/LCgJLDfNCwLKiMi4U2mYe"  
 }
 
 module "webserver_cluster" {
   source = "../../../modules/services/webserver-cluster"
 
   cluster_name            = "webservers-stage"
-  db_remote_state_bucket  = "terraform-up-and-running-state-ystrahinov"
+  db_remote_state_bucket  = "terraform-up-and-running-state-ys"
   db_remote_state_key     = "stage/data-stores/mysql/terraform.tfstate"
 
   instance_type           = "t2.micro"
