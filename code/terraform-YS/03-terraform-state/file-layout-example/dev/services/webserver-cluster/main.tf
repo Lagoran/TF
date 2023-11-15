@@ -1,44 +1,12 @@
-terraform {
-  required_version = ">= 1.0.0, < 2.0.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  # No variables are allowed in the backend definition
-  backend "s3" {
-    # Replace this with your bucket name!
-    bucket         = "terraform-up-and-running-state-ys"
-    key            = "dev/services/webserver-cluster/terraform.tfstate"
-    region         = "us-east-1"
-    access_key     = "AKIAQ42FJ63UNVWZFHEQ"
-    secret_key     = "XLOXuhVky7vIPk4byB66LpUP5Yck3odiUEcjAoNo"
-    
-
-    # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform_locks"
-    encrypt        = true
-  }      
-}
-
-provider "aws" {
-  region = "us-east-1"
-
-  access_key = "AKIAQ42FJ63UNVWZFHEQ"
-  secret_key = "XLOXuhVky7vIPk4byB66LpUP5Yck3odiUEcjAoNo"
-}
-
 resource "aws_launch_configuration" "example" {
   image_id            = "ami-022e1a32d3f742bd8"
   instance_type       = "t2.micro"
   security_groups     = [aws_security_group.instance.id]
 
-  user_data       = templatefile("user-data.sh", {
-    server_port   = var.server_port
-    db_address    = data.terraform_remote_state.db.outputs.address
-    db_port       = data.terraform_remote_state.db.outputs.port
+  user_data           = templatefile("user-data.sh", {
+    server_port       = var.server_port
+    db_address        = data.terraform_remote_state.db.outputs.address
+    db_port           = data.terraform_remote_state.db.outputs.port
   })
   
   

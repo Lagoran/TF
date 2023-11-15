@@ -1,20 +1,4 @@
-terraform {
-  required_version = ">= 1.0.0, < 2.0.0"
 
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-east-1"
-
-  access_key = "AKIAQ5WABLEVABZNKHT4"
-  secret_key = "3aXHkHbwkp1D6zudM0pB8yZHRdzatgZW4NVGcroH"
-}
 
 resource "aws_instance" "example" {
   ami                    = "ami-022e1a32d3f742bd8"

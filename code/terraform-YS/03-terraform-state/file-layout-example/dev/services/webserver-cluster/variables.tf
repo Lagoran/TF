@@ -42,10 +42,10 @@ variable "alb_name" {
 variable "object_example" {
   description = "An example of a structural type in Terraform"
   type        = object({
-    name    = string
-    age     = number
-    tags    = list(string)
-    enabled = bool
+    name        = string
+    age         = number
+    tags        = list(string)
+    enabled     = bool
   })
 
   default = {
