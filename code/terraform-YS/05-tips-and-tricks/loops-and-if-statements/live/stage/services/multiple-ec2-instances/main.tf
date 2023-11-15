@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
@@ -27,4 +27,3 @@ resource "aws_instance" "example_2" {
 }
 
 data "aws_availability_zones" "all" {}
-

@@ -4,13 +4,17 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
-  }
+  }    
 }
 
+
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
+
+  access_key = "AKIA4T3PQ7VVZ5NFJJZ5"
+  secret_key = "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"
 }
 
 module "webserver_cluster" {

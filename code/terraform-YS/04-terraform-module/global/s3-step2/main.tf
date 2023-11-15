@@ -31,15 +31,15 @@ provider "aws" {
 
 }
 
-resource "aws_s3_bucket" "terraform_state" {
+# resource "aws_s3_bucket" "terraform_state" {
 
-  bucket = var.bucket_name
+#   bucket = var.bucket_name
 
-  // This is only here so we can destroy the bucket as part of automated tests. You should not copy this for production
-  // usage
-  force_destroy = true
+#   // This is only here so we can destroy the bucket as part of automated tests. You should not copy this for production
+#   // usage
+#   force_destroy = true
 
-}
+# }
 
 # Enable versioning so you can see the full revision history of your
 # state files

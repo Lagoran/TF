@@ -1,4 +1,4 @@
-output "all_arns" {
+output "first_arn" {
   value = values(aws_iam_user.example)[*].arn
 }
 

@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
@@ -29,4 +29,3 @@ module "webserver_cluster" {
   max_size           = 10
   enable_autoscaling = true
 }
-

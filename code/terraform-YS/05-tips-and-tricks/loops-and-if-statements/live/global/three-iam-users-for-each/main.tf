@@ -4,17 +4,20 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "us-east-1"
+
+  access_key          = "AKIA2PPY223GPKDB25HF"
+  secret_key          = "AaamDq1p0TQJasfmKZ6yBW425mxzorEERlaWpiky"
+
 }
 
 resource "aws_iam_user" "example" {
   for_each = toset(var.user_names)
-  name     = each.value
+  name     = "${each.value}"
 }
-
