@@ -51,3 +51,16 @@ variable "server_port" {
 #   type        = string
 #   default     = "terraform-example-alb"
 # }
+
+
+variable "custom_tags" {
+  description = "Custom tags to set the Instances in the ASG"
+  type = map(string)
+  default = {}
+  }
+
+
+variable "enable_autoscaling" {
+  description = "If set to true, enable auto scaling"
+  type        = bool
+}
