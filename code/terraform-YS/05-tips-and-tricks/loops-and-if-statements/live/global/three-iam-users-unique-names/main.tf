@@ -1,37 +1,15 @@
-terraform {
-  required_version = ">= 1.0.0, < 2.0.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-east-1"
-
-  access_key          = "AKIA2PPY223GPKDB25HF"
-  secret_key          = "AaamDq1p0TQJasfmKZ6yBW425mxzorEERlaWpiky"
-
-}
 resource "aws_iam_user" "example" {
   count = length(var.user_names)
   name  = var.user_names[count.index]
 }
 
 resource "aws_iam_policy" "cloudwatch_read_only" {
-
   name   = "${var.policy_name_prefix}cloudwatch-read-only"
-
   policy = data.aws_iam_policy_document.cloudwatch_read_only.json
 }
 
 resource "aws_iam_policy" "cloudwatch_full_access" {
-
   name   = "${var.policy_name_prefix}cloudwatch-full-access"
-
   policy = data.aws_iam_policy_document.cloudwatch_full_access.json
 }
 

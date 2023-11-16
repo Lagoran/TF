@@ -13,9 +13,9 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
-#AWS account credentials
-  access_key = "AKIAZ7PX4F2UE7CUGWYN"
-  secret_key = "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"
+  #AWS account credentials
+  access_key = "AKIAVBA6PLUMWZ36DXPE"
+  secret_key = "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"
 
   default_tags {
     tags = {

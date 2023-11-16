@@ -1,13 +1,12 @@
-# Web server cluster example (production environment)
+# Web server cluster example
 
 This folder contains an example [Terraform](https://www.terraform.io/) configuration that deploys a cluster of web servers 
 (using [EC2](https://aws.amazon.com/ec2/) and [Auto Scaling](https://aws.amazon.com/autoscaling/)) and a load balancer
 (using [ELB](https://aws.amazon.com/elasticloadbalancing/)) in an [Amazon Web Services (AWS) 
 account](http://aws.amazon.com/). The load balancer listens on port 80 and returns the text "Hello, World" for the 
-`/` URL. The code for the cluster and load balancer are defined as a Terraform module in
-[modules/services/webserver-cluster](../../../../modules/services/webserver-cluster).
+`/` URL.
 
-For more info, please see Chapter 5, "Terraform Tips & Tricks: Loops, If-Statements, Deployment, and Gotchas", of 
+For more info, please see Chapter 3, "How to Manage Terraform State", of 
 *[Terraform: Up and Running](http://www.terraformupandrunning.com)*.
 
 ## Pre-requisites

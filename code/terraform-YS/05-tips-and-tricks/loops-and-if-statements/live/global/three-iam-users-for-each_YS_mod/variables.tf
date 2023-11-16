@@ -6,11 +6,11 @@ variable "user_names" {
 
 variable "hero_thousand_faces" {
   description = "map"
-  type = map(string)
+  type        = map(string)
+
   default = {
-    "neo" = "hero"
-    trinity = "love interest"
-    morpheus = "mentor"
+    "neo"     = "hero"
+    trinity   = "love interest"
+    morpheus  = "mentor"
   }
-  
 }

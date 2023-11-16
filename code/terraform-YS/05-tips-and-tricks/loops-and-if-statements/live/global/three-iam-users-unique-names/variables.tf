@@ -5,7 +5,7 @@ variable "user_names" {
 }
 
 variable "give_neo_cloudwatch_full_access" {
-  description = "If true, neo gets full access to CloudWatch"
+  description = "If 1 or true, neo gets full access to CloudWatch"
   type        = bool
 }
 

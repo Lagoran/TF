@@ -1,9 +1,11 @@
-# MySQL on RDS example (staging environment)
+# Web Server Example
 
-This folder contains an example [Terraform](https://www.terraform.io/) configuration that deploys a MySQL database  (using 
-[RDS](https://aws.amazon.com/rds/) in an [Amazon Web Services (AWS) account](http://aws.amazon.com/). 
+This folder contains an example [Terraform](https://www.terraform.io/) configuration that deploys a single web server (using 
+[EC2](https://aws.amazon.com/ec2/)) in an [Amazon Web Services (AWS) account](http://aws.amazon.com/). The web server
+listens on port 8080 (which is defined as a variable in this example) and returns the text "Hello, World" for the `/` 
+URL.
 
-For more info, please see Chapter 5, "Terraform Tips & Tricks: Loops, If-Statements, Deployment, and Gotchas", of 
+For more info, please see Chapter 2, "Getting started with Terraform", of 
 *[Terraform: Up and Running](http://www.terraformupandrunning.com)*.
 
 ## Pre-requisites
@@ -28,21 +30,17 @@ export AWS_ACCESS_KEY_ID=(your access key id)
 export AWS_SECRET_ACCESS_KEY=(your secret access key)
 ```
 
-Configure the database credentials as environment variables:
-
-```
-export TF_VAR_db_username=(desired database username)
-export TF_VAR_db_password=(desired database password)
-```
-
-Open `main.tf`, uncomment the `backend` configuration, and fill in the name of your S3 bucket, DynamoDB table, and
-the path to use for the Terraform state file.
-
 Deploy the code:
 
 ```
 terraform init
 terraform apply
+```
+
+When the `apply` command completes, it will output the public IP address of the server. To test that IP:
+
+```
+curl http://(server_public_ip):8080/
 ```
 
 Clean up when you're done:
