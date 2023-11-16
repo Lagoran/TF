@@ -1,11 +1,12 @@
 resource "aws_launch_configuration" "example" {
-  image_id            = "ami-022e1a32d3f742bd8"
+  image_id            = var.ami
   instance_type       = var.instance_type
   security_groups     = [aws_security_group.instance.id]
 
   # Render the User Data script as a template
-  user_data = templatefile("${path.module}/user-data.sh", {
-    server_port = var.server_port
+  user_data           = templatefile("${path.module}/user-data.sh", {
+    server_port       = var.server_port
+    server_text       = var.server_text
   })
 
   # Required when using a launch configuration with an auto scaling group.
@@ -15,15 +16,34 @@ resource "aws_launch_configuration" "example" {
 }
 
 resource "aws_autoscaling_group" "example" {
+  # Explicitly depend on the launch configuration's name so each time it's
+  # replaced, this ASG is also replaced
+  name                 = var.cluster_name
+
   launch_configuration = aws_launch_configuration.example.name
   vpc_zone_identifier  = data.aws_subnets.default.ids
 
-  target_group_arns = [aws_lb_target_group.asg.arn]
-  health_check_type = "ELB"
+  target_group_arns    = [aws_lb_target_group.asg.arn]
+  health_check_type    = "ELB"
 
-  min_size = var.min_size
-  max_size = var.max_size
+  min_size             = var.min_size
+  max_size             = var.max_size
 
+  # Wait for at least this many instances to pass health checks before
+  # considering the ASG deployment complete
+  #min_elb_capacity     = var.min_size
+
+  #when replacing this ASG, create the replacement first, and only delete the original after
+  # lifecycle {
+  #   create_before_destroy = true
+  # }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+  }
   tag {
     key                 = "Name"
     value               = "${var.cluster_name}-example"

@@ -1,6 +1,7 @@
 module "webserver_cluster" {
   source                        = "../../modules/services/webserver-clusters"
 
+  server_text             = "Muhahaha NONONONO"
   cluster_name            = "webservers-stage"
   
   instance_type           = "t2.micro"

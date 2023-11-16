@@ -54,12 +54,26 @@ variable "server_port" {
 
 
 variable "custom_tags" {
-  description = "Custom tags to set the Instances in the ASG"
-  type = map(string)
-  default = {}
+  description   = "Custom tags to set the Instances in the ASG"
+  type          = map(string)
+  default       = {}
   }
 
 variable "enable_autoscaling" {
-  description = "Boolean - 1/true or 0/false. If set to true, enable auto scaling!!"
-  type        = bool
+  description   = "Boolean - 1/true or 0/false. If set to true, enable auto scaling!!"
+  type          = bool
+}
+
+variable "ami" {
+  description   = "The AMI to run in the cluster"
+  type          = string
+  default       = "ami-022e1a32d3f742bd8"
+  
+}
+
+variable "server_text" {
+  description   = "The text the web server shoudl return"
+  type          = string
+  default       = "Hello, world"
+  
 }
