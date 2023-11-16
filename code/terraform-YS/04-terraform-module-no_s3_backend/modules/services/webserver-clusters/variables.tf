@@ -59,8 +59,7 @@ variable "custom_tags" {
   default = {}
   }
 
-
 variable "enable_autoscaling" {
-  description = "If set to true, enable auto scaling"
+  description = "Boolean - 1/true or 0/false. If set to true, enable auto scaling!!"
   type        = bool
 }
