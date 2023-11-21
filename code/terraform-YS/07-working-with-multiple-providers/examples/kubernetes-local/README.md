@@ -1,4 +1,6 @@
+###
 Scenario 1: Access web app through ingress-nginx=controller
+###
 
 Additional steps to be performed to be abel to hit the
 webservice on port 8080 after deployment and service are created through TF
@@ -17,8 +19,9 @@ Handling connection for 8080
 Hello Terraform!
 
 
-
+###
 Scenario 2: Access web app through MetalLB controller
+###
 
 -create ingress resource:
 kubectl create ingress simple-webapp --class=nginx   --rule="simple-webapp.me/*=simple-webapp:80"

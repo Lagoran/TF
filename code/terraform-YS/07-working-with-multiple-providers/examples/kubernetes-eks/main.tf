@@ -17,8 +17,8 @@ provider "aws" {
   region = "us-east-2"
 
 #AWS account credentials
-  access_key = "AKIARPLYHXCTI6TPRKWD"
-  secret_key = "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"
+  access_key = "AKIAZG2JHGK6WQHAIAH7"
+  secret_key = "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"
 }
 
 # We need to authenticate to the EKS cluster, but only after it has been created. We accomplish this by using the

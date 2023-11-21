@@ -1,14 +1,3 @@
-terraform {
-  required_version = ">= 1.0.0, < 2.0.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-}
-
 # Deploy the control plane
 resource "aws_eks_cluster" "cluster" {
   name     = var.name
@@ -31,18 +20,6 @@ resource "aws_eks_cluster" "cluster" {
 resource "aws_iam_role" "cluster" {
   name               = "${var.name}-cluster-role"
   assume_role_policy = data.aws_iam_policy_document.cluster_assume_role.json
-}
-
-# Allow EKS to assume the IAM role
-data "aws_iam_policy_document" "cluster_assume_role" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["eks.amazonaws.com"]
-    }
-  }
 }
 
 # Attach the permissions the IAM role needs
@@ -81,18 +58,6 @@ resource "aws_iam_role" "node_group" {
   assume_role_policy = data.aws_iam_policy_document.node_assume_role.json
 }
 
-# Allow EC2 instances to assume the IAM role
-data "aws_iam_policy_document" "node_assume_role" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-  }
-}
-
 # Attach the permissions the node group needs
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
@@ -107,18 +72,4 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.node_group.name
-}
-
-# Since this code is only for testing and learning, use the Default VPC and subnets.
-# For real-world use cases, you should use a custom VPC and private subnets.
-
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
 }
