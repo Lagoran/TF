@@ -13,8 +13,8 @@ provider "aws" {
   region = "us-east-1"
 
 #AWS account credentials
-  access_key = "AKIA4T3PQ7VVZ5NFJJZ5"
-  secret_key = "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"
+  access_key = "AKIASTSYK6TWAE77DZZH"
+  secret_key = "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"
 
   default_tags {
     tags = {
