@@ -6,24 +6,44 @@
 variable "environment" {
   description = "The name of the environment we're deploying to"
   type        = string
-  default     = "dev"
-
+  #default     = "dev"
+  
   validation {
     condition = contains (["dev", "uat", "prod"], var.environment)
-    error_message = "Only 3 type of environemnt are allowed to be chosen: dev | uat | prod."
-  }
+    error_message = ">>>Only 3 type of environemnt are allowed to be chosen: dev | uat | prod.<<<"
+  }  
 }
 
 variable "min_size" {
   description = "The minimum number of EC2 Instances in the ASG"
   type        = number
-  default     = 1
+  #default     = 1
+
+  validation {
+    condition = var.min_size > 0
+    error_message = ">>>ASGs can't be empty!!<<<"
+  }
+
+  validation {
+    condition = var.min_size < 20
+    error_message = ">>>ASGs must have lower min value!!<<<"
+  }  
 }
 
 variable "max_size" {
   description = "The maximum number of EC2 Instances in the ASG"
   type        = number
-  default     = 2
+  default     = 1
+
+  validation {
+    condition = var.max_size > 0
+    error_message = ">>>ASGs can't be empty!!<<<"
+  }
+
+  validation {
+    condition = var.max_size < 22
+    error_message = ">>>ASGs must have higher min value!!<<<"
+  }    
 }
 
 variable "enable_autoscaling" {
@@ -66,5 +86,8 @@ variable "server_port" {
 variable "custom_tags" {
   description = "Custom tags to set on the Instances in the ASG"
   type        = map(string)
-  default     = {}
+  default     = {
+    name      = "Yordan Strahinov"
+    purpose   = "dev"
+  }
 }

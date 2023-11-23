@@ -1,5 +1,5 @@
 module "asg" {
-  source             = "../../cluster/asg-rolling-deploy"
+  source             = "../../cluster/asg-rolling-deploy-auto-recovery-support"
 
   cluster_name       = "hello-world-${var.environment}"
   ami                = var.ami
