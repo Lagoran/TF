@@ -1,6 +1,6 @@
 
 resource "aws_launch_configuration" "example" {
-  image_id            = "ami-022e1a32d3f742bd8"
+  image_id            = data.aws_ami.ubuntu.image_id
   instance_type       = "t2.micro"
   security_groups     = [aws_security_group.instance.id]
 

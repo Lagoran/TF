@@ -6,7 +6,7 @@
 variable "environment" {
   description = "The name of the environment we're deploying to"
   type        = string
-  #default     = "dev"
+  default     = "dev"
   
   validation {
     condition = contains (["dev", "uat", "prod"], var.environment)
@@ -17,7 +17,7 @@ variable "environment" {
 variable "min_size" {
   description = "The minimum number of EC2 Instances in the ASG"
   type        = number
-  #default     = 1
+  default     = 1
 
   validation {
     condition = var.min_size > 0
@@ -73,14 +73,14 @@ variable "instance_type" {
 
 variable "server_text" {
   description = "The text the web server should return"
-  default     = "Hello, World"
+  default     = "Hello, World!!"
   type        = string
 }
 
 variable "server_port" {
   description = "The port the server will use for HTTP requests"
   type        = number
-  default     = 8080
+  default     = 80
 }
 
 variable "custom_tags" {

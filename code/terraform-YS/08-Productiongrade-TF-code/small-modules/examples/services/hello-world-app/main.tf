@@ -2,7 +2,7 @@ module "asg" {
   source             = "../../cluster/asg-rolling-deploy-auto-recovery-support"
 
   cluster_name       = "hello-world-${var.environment}"
-  ami                = var.ami
+  ami                = data.aws_ami.ubuntu.id
   instance_type      = var.instance_type
     
   user_data          = templatefile("${path.module}/user-data.sh", {
@@ -53,8 +53,9 @@ resource "aws_lb_target_group" "asg" {
   health_check {
     path                = "/"
     protocol            = "HTTP"
+    port                = 80
     matcher             = "200"
-    interval            = 15
+    interval            = 10
     timeout             = 3
     healthy_threshold   = 2
     unhealthy_threshold = 2
