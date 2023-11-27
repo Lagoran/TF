@@ -8,3 +8,18 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  region = "us-east-1"
+
+  #AWS account credentials
+  access_key = "XXX"
+  secret_key = "XXX"
+
+  default_tags {
+    tags = {
+      Owner    = "YS"
+      ManagedBy= "Terraform"
+    }
+  }
+}
